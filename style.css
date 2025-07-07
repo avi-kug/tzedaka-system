@@ -1,0 +1,310 @@
+#success-message {
+    transition: opacity 0.5s ease-in-out;
+}
+
+#success-message.hide {
+    opacity: 0;
+}
+
+.table-fixed {
+    table-layout: auto;
+    width: 100%;
+  }
+  
+  .fixed-width-cell,
+  .fixed-width-header{
+    width: 30px  !important;
+    overflow: hidden ;
+    text-overflow: ellipsis ;
+    white-space: nowrap ;
+  }
+  .fixed-width-btn {
+    width: 20px ; /* רוחב קבוע - מתאים לכפתורים קטנים */
+    white-space: nowrap; /* למנוע שבירה לשורות */
+}
+
+.fixed-width-btn a.btn {
+    padding: 0.25rem 0.35rem; /* כפתור קטן */
+    font-size: 0.9rem; /* גודל אייקון קטן */
+    margin-right: 4px; /* ריווח בין הכפתורים */
+}
+
+.fixed-width-btn a.btn i {
+    pointer-events: none; /* למנוע קליקים על האייקון עצמו */
+}
+
+  .rowCheckbox {
+    width: 50px !important; 
+    max-width: 10px ;
+    overflow: hidden ;
+    text-overflow: ellipsis ;
+    white-space: nowrap ;
+  }
+  checkbox {
+    width: 50px !important; 
+    max-width: 10px ;
+    overflow: hidden ;
+    text-overflow: ellipsis ;
+    white-space: nowrap ;
+  }
+
+  table {
+  font-size: 0.85rem;
+  min-width: 800px; /* גורם לגלילה אופקית אם צריך */
+}
+
+table td, table th {
+  padding: 2px 6px;
+  /*width: 100px; /* רוחב קבוע של תאים */
+ /* max-width: 200px; *//* רוחב מקסימלי של תאים */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+th {
+  position: relative;
+  user-select: none; /* למנוע סימון טקסט בזמן גרירה */
+}
+
+.th-resize-handle {/* ידית גרירה לשינוי רוחב עמודה*/
+ position: absolute;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  z-index: 10;
+
+}
+
+th.sortable .th-resize-handle {/* ידית גרירה לשינוי רוחב עמודה */
+  pointer-events: auto;
+}
+
+th.sortable {
+    cursor: default;
+    position: relative;
+}
+
+th.sortable .sort-icon::after {
+    content: '';
+    display: inline-block;
+    margin-right: 4px;
+}
+
+th.sortable.asc .sort-icon::after {
+    content: '▲';
+    font-size: 0.7em;
+}
+
+th.sortable.desc .sort-icon::after {
+    content: '▼';
+    font-size: 0.7em;
+}
+/* הפסקת קליטת לחיצות על כל תא */
+th.sortable {
+  pointer-events: none;
+}
+
+/* איפשור קליטת לחיצות רק על הטקסט */
+th.sortable .sortable-text {
+  cursor: pointer;
+}
+/* גלילה פנימית לטבלה */
+.table-scroll {
+    max-height: calc(100vh - 250px);   /* אפשר לשנות את הגובה */
+    overflow-y: auto;
+    overflow-x: auto !important; /* גלילה אופקית */
+    width: 100%;
+}
+.table-scroll table {
+    margin-bottom: 0;
+    min-width: 1000px; /* רוחב מינימלי של הטבלה */
+}
+.table-scroll thead th {
+    position: sticky;
+    top: 0;
+    background: #212529;
+    color: #fff;
+    z-index: 2;
+}
+
+
+body {
+      direction: rtl;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      
+    }
+
+    .sidebar {
+    width: 130px !important; 
+    height: 100vh;
+    background-color: #87CEEB;
+    color: #fff;
+    padding-top: 30px;
+    white-space: nowrap;
+}
+
+    
+
+    .sidebar .sidebar-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .sidebar a.active {
+    background: #fff;
+    color: #0d6efd !important;
+}
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      padding: 10px 20px;
+      border-radius: 8px 0 0 8px;
+      transition: background 0.2s;
+      white-space: nowrap; /* למנוע שבירת שורות */
+      word-break: keep-all; /* למנוע שבירת מילים */
+    }
+
+    .sidebar ul li a.active,
+    .sidebar ul li a:hover {
+      background-color: #198754;
+      color: #fff;
+    }
+/*.page-wrapper {
+    display: flex;
+    height: 100vh;
+}
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 15px;
+      }
+
+    
+    }*/
+    .main-content {   
+    flex: 1;
+    padding: 30px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    overflow-x: auto;
+}
+    /*שורת חיפוש*/
+    .search-bar-width {
+  max-width: 200px;
+  min-width: 200px;
+  width: 100%;
+  margin-right: 100px;
+  margin-left: 0;
+}
+.tab-content {
+  position: relative;
+  z-index: 0;
+  min-height: 400px;
+  overflow-y: auto;
+}
+.fixed-card-size {
+  width: 100%;
+  height: 590px; /* גובה קבוע */
+  border-radius: 1rem;
+}
+
+.btn {
+  font-size: 13px;
+}
+
+.custom-tabs {
+  border-bottom: none;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-tabs .nav-link {
+  color: #444;
+  font-weight: 500;
+  padding: 3px 16px;
+  border: none;
+  background: none;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover {
+  color: #000;
+  border-bottom: 3px solid #ccc;
+}
+
+.custom-tabs .nav-link.active {
+  color: #000;
+  border-bottom: 3px solid #28a745; /* ירוק */
+}
+.search-form-flex {
+    display: flex;
+    max-width: 350px;
+}
+
+/* עמודות קבועות (תאי תוכן) */
+.sticky-col {
+    position: sticky;
+    background: #fff;
+    z-index: 20; /* נמוך מהכותרת */
+}
+
+/* עמודת סימון (בצד ימין) */
+.start-col {
+    right: 0;
+    width: 60px;
+    text-align: center;
+}
+
+/* עמודת פעולות (בצד שמאל) */
+.end-col {
+    left: 0;
+    width: 80px;
+    text-align: center;
+}
+
+/* קיבוע גם בתאי הכותרת בצדדים */
+thead th.start-col {
+    z-index: 100;
+    right: 0;
+}
+
+thead th.end-col {
+    z-index: 100;
+    left: 0;
+}
+
+/* טבלת מיפוי */
+ .mapping-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.mapping-table th,
+.mapping-table td {
+    width: 150px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
