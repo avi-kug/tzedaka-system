@@ -1,6 +1,8 @@
 <?php
 include 'db.php';
 
+ob_start();
+$pageTitle = 'ניהול עמודות';
 // טבלת יעד לבחירה
 $tableName = $_GET['table'] ?? 'main';
 
@@ -38,9 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>ניהול עמודות - <?= htmlspecialchars($tableName) ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 </head>
-<body class="p-4">
-
-<div class="container">
+<div class="container fluid">
   <h3 class="mb-4">⚙ ניהול עמודות לטבלה: <?= htmlspecialchars($tableName) ?></h3>
 
   <form method="get" class="mb-4">
@@ -76,3 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
+<?php 
+$content = ob_get_clean();
+include 'layout.php';
+?>

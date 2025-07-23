@@ -1,12 +1,17 @@
 <?php
-require 'session_messages.php';
-$pdo = new PDO("mysql:host=localhost;dbname=my_database;charset=utf8", "root", "", [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-]);
+include 'db.php';
 
+ob_start();
+$pageTitle = 'ניהול משתמשים';
 // הוספת משתמש חדש
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
     $username = $_POST['username'];
+     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    if ($stmt->fetchColumn() > 0) {
+    echo "<script>alert('שם המשתמש כבר קיים במערכת!');</script>"; 
+   } else {
+
     $full_name = $_POST['full_name'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $permissions_pages = isset($_POST['permissions_pages']) ? implode(',', $_POST['permissions_pages']) : '';
@@ -14,11 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
 
     $stmt = $pdo->prepare("INSERT INTO users (username, full_name, password, permissions, default_page, permissions_pages) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->execute([$username, $full_name, $password, 'user', $default_page, $permissions_pages]);
-
-    header("Location: users.php");
+        header("Location: users.php");
     exit;
 }
-
+}
 // מחיקת משתמש
 if (isset($_GET['delete'])) {
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
@@ -49,7 +53,8 @@ $sidebar_pages = [
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-<div class="container py-5">
+<div class="container fluid">
+<div class="row">    
     <h2 class="mb-4">ניהול משתמשים</h2>
 
     <form method="POST" class="row g-2 bg-white p-3 rounded shadow-sm mb-4">
@@ -110,4 +115,7 @@ $sidebar_pages = [
     </table>
 </div>
 </body>
-</html>
+<?php
+$content = ob_get_clean();
+include 'layout.php';
+?>

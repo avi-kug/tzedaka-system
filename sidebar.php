@@ -7,7 +7,7 @@
         <li><a href="view.php" data-page="view.php">פרטים מלאים</a></li>
         <li><a href="hok.php" data-page="hok.php">הוראות קבע</a></li>
         <li><a href="#">מזומן</a></li>
-        <li><a href="manage_columns.php">ניהול שדות</a></li>
+        <li><a href="manage_columns.php" data-page="manage_columns.php">ניהול שדות</a></li>
         <li><a href="users.php">משתמשים</a></li>
     </ul>
 </div>
