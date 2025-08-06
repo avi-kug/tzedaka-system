@@ -1,35 +1,36 @@
 import sys
 import pdfplumber
 import PyPDF2
-from bidi.algorithm  import get_display
-import sys
 import io
+import re
+import traceback
+
+# תמיכה בעברית בפלט
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 def extract_name_from_page(page, i):
-    import re
     text = page.extract_text()
-    print(f"עמוד {i+1} טקסט: {text}")
-    if text and "לכבוד" in text:
+    print(f"\n--- עמוד {i+1} ---")
+    print(text)
+
+    if text and "דובכל" in text:
         lines = text.split("\n")
-        for line in lines:
-            if "לכבוד" in line:
-                # חפש את השם באותה שורה או בשורה הבאה
-                match = re.search(r"לכבוד\s+(.+)", line)
-                if match:
-                    name = match.group(1).strip()
+        for idx, line in enumerate(lines):
+            if "דובכל" in line:
+                # נסה לקחת את השורה שאחרי
+                if idx + 1 < len(lines):
+                    name_line = lines[idx + 1].strip()
                 else:
-                    # נסה לקחת את השורה הבאה
-                    idx = lines.index(line)
-                    if idx + 1 < len(lines):
-                        name = lines[idx + 1].strip()
-                    else:
-                        name = "zzzz"
+                    # אם אין שורה אחרי, קח את מה שנשאר בשורה עצמה
+                    name_line = line.replace("דובכל", "").strip()
+
                 # שמור רק אותיות עבריות ורווחים
-                name = re.sub(r'[^א-ת ]', '', name)
-                return name  # אל תשתמש ב־get_display
-    return "zzzz"
+                name = re.sub(r'[^א-ת ]', '', name_line)
+                print(f"נמצא שם: {name}")
+                return name
+
+    return "zzzz"  # כדי למיין בסוף
 
 
 def sort_pdf_by_name(input_path, output_path):
@@ -37,25 +38,29 @@ def sort_pdf_by_name(input_path, output_path):
         pages_with_names = []
         for i, page in enumerate(pdf.pages):
             name = extract_name_from_page(page, i)
-            print(f"עמוד {i+1}: {name}")
             pages_with_names.append((name, i))
 
+    # מיין לפי שם
     pages_with_names.sort(key=lambda x: x[0])
 
     reader = PyPDF2.PdfReader(input_path)
     writer = PyPDF2.PdfWriter()
+
     for name, page_num in pages_with_names:
         writer.add_page(reader.pages[page_num])
 
     with open(output_path, "wb") as f_out:
         writer.write(f_out)
 
+    print(f"\nהקובץ החדש נוצר: {output_path}")
+
+
 if __name__ == "__main__":
     print("Python path:", sys.executable)
     print("Python version:", sys.version)
 
     if len(sys.argv) != 3:
-        print("שימוש: sort_pdf.py קובץ_מקור קובץ_יעד")
+        print("שימוש: sort_pdf_by_name.py קובץ_מקור.pdf קובץ_יעד.pdf")
         sys.exit(1)
 
     input_pdf_path = sys.argv[1]
@@ -66,7 +71,6 @@ if __name__ == "__main__":
         print("הקובץ מוין בהצלחה!")
         sys.exit(0)
     except Exception as e:
-        import traceback
         print("שגיאה:", e)
         traceback.print_exc()
         sys.exit(1)

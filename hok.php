@@ -1,5 +1,6 @@
 <?php
 include 'db.php';
+include 'fields.php';
 $tableName = 'hok';
 $stmt = $pdo->prepare("SELECT cs.column_key, cs.label 
                        FROM columns_per_table cpt 
@@ -119,7 +120,7 @@ while ($row = $result->fetch()) {
     </div>
     
 
-    <div class="tab-content mt-3">
+    <div class="tab-content">
         <div class="tab-pane fade show active" id="achim_lechesed" role="tabpanel">
             <h3 class="mb-3">אחים לחסד</h3>
             <div class="table-responsive table-scroll">
