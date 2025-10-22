@@ -1,4 +1,6 @@
 <?php
+ini_set('session.gc_maxlifetime', 36000);
+session_set_cookie_params(36000);
 session_start();
 require 'db.php'; // קובץ חיבור למסד הנתונים
 
@@ -18,8 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['permissions'] = $user['permissions']; // נשתמש בזה לדפי הרשאות
 
-            header("Location: view.php"); // דף הבית שלך
-            exit;
+if (isset($_SESSION['redirect_after_login'])) {
+    $redirect = $_SESSION['redirect_after_login'];
+    unset($_SESSION['redirect_after_login']);
+    header("Location: $redirect");
+    exit;
+} else {
+    header("Location: view.php"); // ברירת מחדל אם לא היה דף קודם
+    exit;
+}
+
+            
         } else {
             $error = 'שם משתמש או סיסמה שגויים';
         }

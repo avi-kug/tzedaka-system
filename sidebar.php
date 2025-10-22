@@ -10,4 +10,8 @@
         <li><a href="manage_columns.php" data-page="manage_columns.php">ניהול שדות</a></li>
         <li><a href="users.php">משתמשים</a></li>
     </ul>
+
+    <div class="logout-container">
+    <a href="logout.php" class="btn btn-danger w-100">🔒 התנתקות</a>
+  </div>
 </div>

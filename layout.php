@@ -11,6 +11,7 @@
     
 <div class="page-wrapper d-flex">
     <?php include 'sidebar.php'; ?>
+    
     <div class="main-content flex-grow-1" id="mainContent">
         <?php include 'session_messages.php'; ?>
         <?php include 'add_modal.php'; ?>
